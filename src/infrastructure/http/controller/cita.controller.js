@@ -14,6 +14,16 @@ const descifrarSeguro = (dato) => {
     }
 };
 
+// Función para decodificar campos de URL
+const decodificarCampo = (campo) => {
+    try {
+        return campo ? decodeURIComponent(campo) : '';
+    } catch (error) {
+        console.error('Error al decodificar:', error);
+        return campo || '';
+    }
+};
+
 // Mostrar todas las citas con información completa
 citaCtl.mostrarCitas = async (req, res) => {
     try {
@@ -90,7 +100,7 @@ citaCtl.crearCita = async (req, res) => {
             idMascota: idMascota,
             idServicio: idServicio,
             fecha: fecha,
-            hora: decodeURIComponent(hora),
+            hora: decodificarCampo(hora),
             estadoCita: 'programada',
             userIdUser: userIdUser || null,
             createCita: new Date().toLocaleString(),
@@ -100,12 +110,12 @@ citaCtl.crearCita = async (req, res) => {
             idCitaSql: nuevaCita.idCita.toString(),
             idCliente: idCliente.toString(),
             idMascota: idMascota.toString(),
-            motivo: motivo || '',
-            sintomas: sintomas || '',
-            diagnosticoPrevio: diagnosticoPrevio || '',
+            motivo: decodificarCampo(motivo) || '',
+            sintomas: decodificarCampo(sintomas) || '',
+            diagnosticoPrevio: decodificarCampo(diagnosticoPrevio) || '',
             tratamientosAnteriores: tratamientosAnteriores || [],
             estado: 'pendiente',
-            notasAdicionales: notasAdicionales || '',
+            notasAdicionales: decodificarCampo(notasAdicionales) || '',
             asistio: false
         });
 
@@ -142,7 +152,7 @@ citaCtl.actualizarCita = async (req, res) => {
             idMascota: idMascota,
             idServicio: idServicio,
             fecha: fecha,
-            hora: decodeURIComponent(hora),
+            hora: decodificarCampo(hora),
             estadoCita: 'programada',
             userIdUser: userIdUser || null,
         }, {
@@ -155,11 +165,11 @@ citaCtl.actualizarCita = async (req, res) => {
             {
                 idCliente: idCliente.toString(),
                 idMascota: idMascota.toString(),
-                motivo: motivo || '',
-                sintomas: sintomas || '',
-                diagnosticoPrevio: diagnosticoPrevio || '',
+                motivo: decodificarCampo(motivo) || '',
+                sintomas: decodificarCampo(sintomas) || '',
+                diagnosticoPrevio: decodificarCampo(diagnosticoPrevio) || '',
                 tratamientosAnteriores: tratamientosAnteriores || [],
-                notasAdicionales: notasAdicionales || '',
+                notasAdicionales: decodificarCampo(notasAdicionales) || '',
                 asistio: false // Puedes cambiar esto si es necesario
             }
         );
@@ -444,7 +454,7 @@ citaCtl.reprogramarCita = async (req, res) => {
         };
 
         if (fecha) datosActualizacion.fecha = fecha;
-        if (hora) datosActualizacion.hora = decodeURIComponent(hora);
+        if (hora) datosActualizacion.hora = decodificarCampo(hora);
         if (userIdUser) datosActualizacion.userIdUser = userIdUser;
 
         // Actualizar en SQL
@@ -458,7 +468,7 @@ citaCtl.reprogramarCita = async (req, res) => {
                 { idCitaSql: idCita },
                 {
                     $set: {
-                        notasAdicionales: `Reprogramada: ${motivoReprogramacion}. ${citaActual[0].notasAdicionales || ''}`
+                        notasAdicionales: `Reprogramada: ${decodificarCampo(motivoReprogramacion)}. ${citaActual[0].notasAdicionales || ''}`
                     }
                 }
             );
@@ -510,7 +520,7 @@ citaCtl.cambiarEstadoCita = async (req, res) => {
         };
 
         if (notas) {
-            actualizacionMongo.notasAdicionales = notas;
+            actualizacionMongo.notasAdicionales = decodificarCampo(notas);
         }
 
         if (typeof asistio === 'boolean') {

@@ -249,3 +249,107 @@
 2025-12-28 22:01:44 [INFO]: Conexión establecida con la base de datos
 2025-12-28 22:01:45 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-00.ux4si.mongodb.net
 2025-12-28 22:01:45 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:02:07 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:03:15 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 270.935 ms - -[0m
+2025-12-28 22:15:03 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 252.161 ms - -[0m
+2025-12-28 22:15:24 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:15:24 [INFO]: Base de datos conectada
+2025-12-28 22:15:25 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:15:25 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-02.ux4si.mongodb.net
+2025-12-28 22:15:25 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:15:27 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 274.535 ms - -[0m
+2025-12-28 22:15:28 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 259.231 ms - -[0m
+2025-12-28 22:15:47 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:16:13 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:16:14 [INFO]: Base de datos conectada
+2025-12-28 22:16:14 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:16:15 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-01.ux4si.mongodb.net
+2025-12-28 22:16:15 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:16:29 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:16:29 [INFO]: Base de datos conectada
+2025-12-28 22:16:30 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:16:31 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-02.ux4si.mongodb.net
+2025-12-28 22:16:31 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:16:41 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 264.324 ms - -[0m
+2025-12-28 22:16:52 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:16:54 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:16:54 [INFO]: Base de datos conectada
+2025-12-28 22:16:55 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:16:55 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-02.ux4si.mongodb.net
+2025-12-28 22:16:55 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:16:59 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:17:00 [INFO]: Base de datos conectada
+2025-12-28 22:17:00 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:17:01 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-00.ux4si.mongodb.net
+2025-12-28 22:17:01 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:17:08 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:17:08 [INFO]: Base de datos conectada
+2025-12-28 22:17:09 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:17:10 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-02.ux4si.mongodb.net
+2025-12-28 22:17:10 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:17:31 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:17:35 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:17:35 [INFO]: Base de datos conectada
+2025-12-28 22:17:36 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:17:36 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-01.ux4si.mongodb.net
+2025-12-28 22:17:36 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:17:41 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:17:42 [INFO]: Base de datos conectada
+2025-12-28 22:17:42 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:17:43 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-02.ux4si.mongodb.net
+2025-12-28 22:17:43 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:17:52 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:17:52 [INFO]: Base de datos conectada
+2025-12-28 22:17:53 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:17:53 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-01.ux4si.mongodb.net
+2025-12-28 22:17:53 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:18:03 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:18:03 [INFO]: Base de datos conectada
+2025-12-28 22:18:04 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:18:04 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-00.ux4si.mongodb.net
+2025-12-28 22:18:04 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:18:14 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:18:14 [INFO]: Base de datos conectada
+2025-12-28 22:18:15 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:18:16 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-00.ux4si.mongodb.net
+2025-12-28 22:18:16 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:18:43 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:18:43 [INFO]: Base de datos conectada
+2025-12-28 22:18:44 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:18:44 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-00.ux4si.mongodb.net
+2025-12-28 22:18:44 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:18:45 [ERROR]: Error al decodificar: URIError: URI malformed
+2025-12-28 22:18:46 [INFO]: [0mPOST /cita/crear [32m201[0m 370.481 ms - 50[0m
+2025-12-28 22:18:55 [INFO]: [0mGET /cita/lista [32m200[0m 1170.097 ms - 10180[0m
+2025-12-28 22:19:04 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:19:10 [INFO]: [0mGET /cita/cliente/1 [32m200[0m 255.758 ms - 918[0m
+2025-12-28 22:19:14 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 251.767 ms - -[0m
+2025-12-28 22:20:00 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:20:01 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:20:01 [INFO]: Base de datos conectada
+2025-12-28 22:20:02 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:20:03 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-02.ux4si.mongodb.net
+2025-12-28 22:20:03 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:20:19 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:20:20 [INFO]: Base de datos conectada
+2025-12-28 22:20:20 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:20:21 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-00.ux4si.mongodb.net
+2025-12-28 22:20:21 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:20:43 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:20:49 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:20:49 [INFO]: Base de datos conectada
+2025-12-28 22:20:51 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:20:51 [INFO]: Base de datos conectada
+2025-12-28 22:20:53 [INFO]: El servidor está escuchando en el puerto 3000
+2025-12-28 22:20:53 [INFO]: Base de datos conectada
+2025-12-28 22:20:54 [INFO]: Conexión establecida con la base de datos
+2025-12-28 22:20:54 [INFO]: ✅ Mongoose conectado a MongoDB en: edisoncloud-shard-00-01.ux4si.mongodb.net
+2025-12-28 22:20:54 [INFO]: 🚀 MongoDB conectado correctamente
+2025-12-28 22:20:57 [INFO]: [0mGET /cita/cliente/1 [32m200[0m 272.875 ms - 901[0m
+2025-12-28 22:21:17 [INFO]: Base de Datos sincronizadas
+2025-12-28 22:21:29 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 260.052 ms - -[0m
+2025-12-28 22:22:20 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 256.234 ms - -[0m
+2025-12-28 22:22:27 [INFO]: [0mDELETE /cita/cancelar/8 [32m200[0m 382.344 ms - 41[0m
+2025-12-28 22:22:29 [INFO]: [0mGET /cita/cliente/1 [32m200[0m 258.942 ms - 449[0m
+2025-12-28 22:23:37 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 260.402 ms - -[0m
+2025-12-28 22:23:37 [INFO]: [0mGET /cita/cliente/1 [36m304[0m 258.429 ms - -[0m

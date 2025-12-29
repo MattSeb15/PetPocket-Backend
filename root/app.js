@@ -32,13 +32,29 @@ const app = express();
 // ==================== CONFIGURACIÓN BÁSICA ====================
 app.set('port', process.env.PORT || 3000);
 
-// Habilitar CORS (configura según tus necesidades)
+// Habilitar CORS - Permitir todas las conexiones
 app.use(cors({
-    origin: 'http://localhost:4200',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
-    credentials: true
+    origin: '*', // Permite todos los orígenes
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Origin'],
+    credentials: false, // Debe ser false cuando origin es '*'
+    optionsSuccessStatus: 200
 }));
+
+// Manejar peticiones preflight explícitamente
+app.options('*', cors());
+
+// Headers adicionales para CORS
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH, HEAD');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Origin');
+    
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 // ==================== CONFIGURACIÓN DE LOGS MEJORADA ====================
 
@@ -108,8 +124,12 @@ app.use((req, res, next) => {
     }
 });
 
-// 5. Configuración de Helmet
-app.use(helmet());
+// 5. Configuración de Helmet - Ajustado para permitir CORS
+app.use(helmet({
+    crossOriginResourcePolicy: false, // Permitir recursos de otros orígenes
+    crossOriginEmbedderPolicy: false,
+    contentSecurityPolicy: false // Desactivar CSP para desarrollo
+}));
 
 // 6. Protección contra HTTP Parameter Pollution
 app.use(hpp());
@@ -175,12 +195,12 @@ app.use(session(sessionConfig));
 app.use(flash());
 
 
-// 12. Headers de seguridad adicionales
+// 12. Headers de seguridad adicionales (ajustados para permitir CORS)
 app.use((req, res, next) => {
-    res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-    res.setHeader('Feature-Policy', "geolocation 'none'; microphone 'none'; camera 'none'");
+    // X-Frame-Options removido para permitir embedding
+    // Feature-Policy ajustado para desarrollo
     next();
 });
 
