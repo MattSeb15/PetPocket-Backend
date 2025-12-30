@@ -32,29 +32,21 @@ const app = express();
 // ==================== CONFIGURACIÓN BÁSICA ====================
 app.set('port', process.env.PORT || 3000);
 
-// Habilitar CORS - Permitir todas las conexiones
-app.use(cors({
-    origin: '*', // Permite todos los orígenes
+// Habilitar CORS (incluye soporte para cookies/credenciales)
+// Nota: con credenciales NO se puede usar Access-Control-Allow-Origin: '*'.
+// `origin: true` refleja el Origin entrante.
+const corsOptions = {
+    origin: true,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH', 'HEAD'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-Requested-With', 'Accept', 'Origin'],
-    credentials: false, // Debe ser false cuando origin es '*'
     optionsSuccessStatus: 200
-}));
+};
+
+app.use(cors(corsOptions));
 
 // Manejar peticiones preflight explícitamente
-app.options('*', cors());
-
-// Headers adicionales para CORS
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH, HEAD');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Origin');
-
-    if (req.method === 'OPTIONS') {
-        return res.sendStatus(200);
-    }
-    next();
-});
+app.options('*', cors(corsOptions));
 
 // ==================== CONFIGURACIÓN DE LOGS MEJORADA ====================
 
