@@ -5,3 +5,4 @@ error.log
 
 src/logs/app.log 
 src/logs/app.log
+root/logs/app.log
