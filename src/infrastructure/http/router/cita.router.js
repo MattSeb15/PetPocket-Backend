@@ -1,150 +1,159 @@
-const express = require('express');
-const router = express.Router();
-const { body, param, query } = require('express-validator');
+const express = require('express')
+const router = express.Router()
+const { body, param, query } = require('express-validator')
 
 const {
-    mostrarCitas,
-    crearCita,
-    actualizarCita,
-    eliminarCita,
-    obtenerCitaPorId,
-    obtenerCitasPorCliente,
-    obtenerCalendarioCitas,
-    reprogramarCita,
-    cambiarEstadoCita,
-    verificarDisponibilidad,
-    obtenerEstadisticas
-} = require('../controller/cita.controller');
+	mostrarCitas,
+	crearCita,
+	actualizarCita,
+	eliminarCita,
+	obtenerCitaPorId,
+	obtenerCitasPorCliente,
+	obtenerCalendarioCitas,
+	reprogramarCita,
+	cambiarEstadoCita,
+	verificarDisponibilidad,
+	obtenerEstadisticas,
+} = require('../controller/cita.controller')
 
 // Middleware de autenticación (opcional)
 // const isLoggedIn = require('../lib/auth');
 
 // Validaciones para crear cita
 const validacionCrearCita = [
-    body('idCliente')
-        .isInt({ min: 1 })
-        .withMessage('El ID del cliente debe ser un número entero positivo'),
+	body('idCliente')
+		.isInt({ min: 1 })
+		.withMessage('El ID del cliente debe ser un número entero positivo'),
 
-    body('idMascota')
-        .isInt({ min: 1 })
-        .withMessage('El ID de la mascota debe ser un número entero positivo'),
+	body('idMascota')
+		.isInt({ min: 1 })
+		.withMessage('El ID de la mascota debe ser un número entero positivo'),
 
-    body('idServicio')
-        .isInt({ min: 1 })
-        .withMessage('El ID del servicio debe ser un número entero positivo'),
+	body('idServicio')
+		.isInt({ min: 1 })
+		.withMessage('El ID del servicio debe ser un número entero positivo'),
 
-    body('fecha')
-        .isISO8601()
-        .withMessage('La fecha debe ser válida (formato ISO 8601)')
-        .custom((value) => {
-            const fecha = new Date(value);
-            const hoy = new Date();
-            hoy.setHours(0, 0, 0, 0);
-            if (fecha < hoy) {
-                throw new Error('La fecha no puede ser anterior a hoy');
-            }
-            return true;
-        }),
+	body('fecha')
+		.isISO8601()
+		.withMessage('La fecha debe ser válida (formato ISO 8601)')
+		.custom(value => {
+			const fecha = new Date(value)
+			const hoy = new Date()
+			hoy.setHours(0, 0, 0, 0)
+			if (fecha < hoy) {
+				throw new Error('La fecha no puede ser anterior a hoy')
+			}
+			return true
+		}),
 
-    body('hora')
-        .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
-        .withMessage('La hora debe tener formato HH:MM válido'),
+	body('hora')
+		.matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
+		.withMessage('La hora debe tener formato HH:MM válido'),
 
-    body('userIdUser')
-        .optional()
-        .isInt({ min: 1 })
-        .withMessage('El ID del usuario debe ser un número entero positivo'),
+	body('userIdUser')
+		.optional({ nullable: true, checkFalsy: false })
+		.custom(value => {
+			if (value === null || value === undefined || value === '') {
+				return true // Permitir null/undefined/vacío
+			}
+			if (!Number.isInteger(Number(value)) || Number(value) < 1) {
+				throw new Error('El ID del usuario debe ser un número entero positivo')
+			}
+			return true
+		}),
 
-    // Validaciones para campos de MongoDB
-    body('motivo')
-        .optional()
-        .isLength({ max: 255 })
-        .withMessage('El motivo no puede exceder 255 caracteres'),
+	// Validaciones para campos de MongoDB
+	body('motivo')
+		.optional()
+		.isLength({ max: 255 })
+		.withMessage('El motivo no puede exceder 255 caracteres'),
 
-    body('sintomas')
-        .optional()
-        .isLength({ max: 500 })
-        .withMessage('Los síntomas no pueden exceder 500 caracteres'),
+	body('sintomas')
+		.optional()
+		.isLength({ max: 500 })
+		.withMessage('Los síntomas no pueden exceder 500 caracteres'),
 
-    body('diagnosticoPrevio')
-        .optional()
-        .isLength({ max: 300 })
-        .withMessage('El diagnóstico previo no puede exceder 300 caracteres'),
+	body('diagnosticoPrevio')
+		.optional()
+		.isLength({ max: 300 })
+		.withMessage('El diagnóstico previo no puede exceder 300 caracteres'),
 
-    body('tratamientosAnteriores')
-        .optional()
-        .isArray()
-        .withMessage('Los tratamientos anteriores deben ser un array'),
+	body('tratamientosAnteriores')
+		.optional()
+		.isArray()
+		.withMessage('Los tratamientos anteriores deben ser un array'),
 
-    body('notasAdicionales')
-        .optional()
-        .isLength({ max: 500 })
-        .withMessage('Las notas adicionales no pueden exceder 500 caracteres')
-];
+	body('notasAdicionales')
+		.optional()
+		.isLength({ max: 500 })
+		.withMessage('Las notas adicionales no pueden exceder 500 caracteres'),
+]
 
 // Validaciones para actualizar cita
 const validacionActualizarCita = [
-    param('idCita')
-        .isInt({ min: 1 })
-        .withMessage('El ID de la cita debe ser un número entero positivo'),
+	param('idCita')
+		.isInt({ min: 1 })
+		.withMessage('El ID de la cita debe ser un número entero positivo'),
 
-    ...validacionCrearCita
-];
+	...validacionCrearCita,
+]
 
 // Validación para eliminar cita
 const validacionEliminarCita = [
-    param('idCita')
-        .isInt({ min: 1 })
-        .withMessage('El ID de la cita debe ser un número entero positivo')
-];
+	param('idCita')
+		.isInt({ min: 1 })
+		.withMessage('El ID de la cita debe ser un número entero positivo'),
+]
 
 // Validación para cambiar estado de cita
 const validacionCambiarEstado = [
-    param('idCita')
-        .isInt({ min: 1 })
-        .withMessage('El ID de la cita debe ser un número entero positivo'),
+	param('idCita')
+		.isInt({ min: 1 })
+		.withMessage('El ID de la cita debe ser un número entero positivo'),
 
-    body('estado')
-        .isIn(['programada', 'confirmada', 'cancelada', 'completada'])
-        .withMessage('Estado debe ser: programada, confirmada, cancelada o completada'),
+	body('estado')
+		.isIn(['programada', 'confirmada', 'cancelada', 'completada'])
+		.withMessage(
+			'Estado debe ser: programada, confirmada, cancelada o completada'
+		),
 
-    body('notas')
-        .optional()
-        .isLength({ max: 500 })
-        .withMessage('Las notas no pueden exceder 500 caracteres'),
+	body('notas')
+		.optional()
+		.isLength({ max: 500 })
+		.withMessage('Las notas no pueden exceder 500 caracteres'),
 
-    body('asistio')
-        .optional()
-        .isBoolean()
-        .withMessage('El campo asistio debe ser verdadero o falso')
-];
+	body('asistio')
+		.optional()
+		.isBoolean()
+		.withMessage('El campo asistio debe ser verdadero o falso'),
+]
 
 // Validación para reprogramar cita
 const validacionReprogramarCita = [
-    param('idCita')
-        .isInt({ min: 1 })
-        .withMessage('El ID de la cita debe ser un número entero positivo'),
+	param('idCita')
+		.isInt({ min: 1 })
+		.withMessage('El ID de la cita debe ser un número entero positivo'),
 
-    body('fecha')
-        .optional()
-        .isISO8601()
-        .withMessage('La fecha debe ser válida (formato ISO 8601)'),
+	body('fecha')
+		.optional()
+		.isISO8601()
+		.withMessage('La fecha debe ser válida (formato ISO 8601)'),
 
-    body('hora')
-        .optional()
-        .matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
-        .withMessage('La hora debe tener formato HH:MM válido'),
+	body('hora')
+		.optional()
+		.matches(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
+		.withMessage('La hora debe tener formato HH:MM válido'),
 
-    body('userIdUser')
-        .optional()
-        .isInt({ min: 1 })
-        .withMessage('El ID del usuario debe ser un número entero positivo'),
+	body('userIdUser')
+		.optional()
+		.isInt({ min: 1 })
+		.withMessage('El ID del usuario debe ser un número entero positivo'),
 
-    body('motivoReprogramacion')
-        .optional()
-        .isLength({ max: 300 })
-        .withMessage('El motivo no puede exceder 300 caracteres')
-];
+	body('motivoReprogramacion')
+		.optional()
+		.isLength({ max: 300 })
+		.withMessage('El motivo no puede exceder 300 caracteres'),
+]
 
 // ================ RUTAS DE CITAS ================
 
@@ -174,7 +183,7 @@ const validacionReprogramarCita = [
  *       500:
  *         description: Error del servidor
  */
-router.get('/lista', mostrarCitas);
+router.get('/lista', mostrarCitas)
 
 /**
  * @swagger
@@ -197,10 +206,11 @@ router.get('/lista', mostrarCitas);
  *       500:
  *         description: Error del servidor
  */
-router.get('/detalle/:idCita',
-    param('idCita').isInt({ min: 1 }).withMessage('ID de cita inválido'),
-    obtenerCitaPorId
-);
+router.get(
+	'/detalle/:idCita',
+	param('idCita').isInt({ min: 1 }).withMessage('ID de cita inválido'),
+	obtenerCitaPorId
+)
 
 /**
  * @swagger
@@ -227,10 +237,11 @@ router.get('/detalle/:idCita',
  *       500:
  *         description: Error del servidor
  */
-router.get('/cliente/:idCliente',
-    param('idCliente').isInt({ min: 1 }).withMessage('ID de cliente inválido'),
-    obtenerCitasPorCliente
-);
+router.get(
+	'/cliente/:idCliente',
+	param('idCliente').isInt({ min: 1 }).withMessage('ID de cliente inválido'),
+	obtenerCitasPorCliente
+)
 
 /**
  * @swagger
@@ -257,7 +268,7 @@ router.get('/cliente/:idCliente',
  *       500:
  *         description: Error del servidor
  */
-router.get('/calendario', obtenerCalendarioCitas);
+router.get('/calendario', obtenerCalendarioCitas)
 
 /**
  * @swagger
@@ -294,7 +305,7 @@ router.get('/calendario', obtenerCalendarioCitas);
  *       400:
  *         description: Parámetros inválidos
  */
-router.get('/verificar-disponibilidad', verificarDisponibilidad);
+router.get('/verificar-disponibilidad', verificarDisponibilidad)
 
 /**
  * @swagger
@@ -321,7 +332,7 @@ router.get('/verificar-disponibilidad', verificarDisponibilidad);
  *       500:
  *         description: Error del servidor
  */
-router.get('/estadisticas', obtenerEstadisticas);
+router.get('/estadisticas', obtenerEstadisticas)
 
 /**
  * @swagger
@@ -390,7 +401,7 @@ router.get('/estadisticas', obtenerEstadisticas);
  *       500:
  *         description: Error del servidor
  */
-router.post('/crear', validacionCrearCita, crearCita);
+router.post('/crear', validacionCrearCita, crearCita)
 
 /**
  * @swagger
@@ -419,7 +430,7 @@ router.post('/crear', validacionCrearCita, crearCita);
  *       500:
  *         description: Error del servidor
  */
-router.put('/actualizar/:idCita', validacionActualizarCita, actualizarCita);
+router.put('/actualizar/:idCita', validacionActualizarCita, actualizarCita)
 
 /**
  * @swagger
@@ -459,7 +470,7 @@ router.put('/actualizar/:idCita', validacionActualizarCita, actualizarCita);
  *       500:
  *         description: Error del servidor
  */
-router.put('/reprogramar/:idCita', validacionReprogramarCita, reprogramarCita);
+router.put('/reprogramar/:idCita', validacionReprogramarCita, reprogramarCita)
 
 /**
  * @swagger
@@ -501,7 +512,11 @@ router.put('/reprogramar/:idCita', validacionReprogramarCita, reprogramarCita);
  *       500:
  *         description: Error del servidor
  */
-router.put('/cambiar-estado/:idCita', validacionCambiarEstado, cambiarEstadoCita);
+router.put(
+	'/cambiar-estado/:idCita',
+	validacionCambiarEstado,
+	cambiarEstadoCita
+)
 
 /**
  * @swagger
@@ -524,6 +539,6 @@ router.put('/cambiar-estado/:idCita', validacionCambiarEstado, cambiarEstadoCita
  *       500:
  *         description: Error del servidor
  */
-router.delete('/cancelar/:idCita', validacionEliminarCita, eliminarCita);
+router.delete('/cancelar/:idCita', validacionEliminarCita, eliminarCita)
 
-module.exports = router;
+module.exports = router
